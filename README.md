@@ -51,5 +51,5 @@ Golangの共通ライブラリとして処理をまとめてあります。
 未指定の場合は実行ディレクトリを参照します。  
 
 ```sh
-go run <my_program> --conf==/path/to/
+go run <my_program> --conf=/path/to/
 ```
