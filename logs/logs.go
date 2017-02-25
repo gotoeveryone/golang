@@ -36,21 +36,21 @@ func Init(p, l string) error {
 
 // Info 通知
 func Info(v interface{}) {
-	if level >= levels["INFO"] {
+	if level <= levels["INFO"] {
 		log.Println(fmt.Sprintf("%s %s", "INFO", v))
 	}
 }
 
 // Error エラー
 func Error(v interface{}) {
-	if level >= levels["ERROR"] {
+	if level <= levels["ERROR"] {
 		log.Println(fmt.Errorf("%s %s", "ERROR", v))
 	}
 }
 
 // Fatal 致命的
 func Fatal(v interface{}) {
-	if level >= levels["FATAL"] {
+	if level <= levels["FATAL"] {
 		log.Fatal(fmt.Errorf("%s %s", "FATAL", v))
 	}
 }
