@@ -3,6 +3,7 @@ package mail
 import (
 	"bytes"
 	"encoding/base64"
+	"net/mail"
 	"net/smtp"
 	"strconv"
 	"strings"
@@ -16,7 +17,8 @@ func SendMail(config common.Config, subject string, body string) error {
 	auth := smtp.PlainAuth("", config.Mail.User, config.Mail.Password, config.Mail.SMTP)
 
 	var buffer bytes.Buffer
-	buffer.WriteString("From: " + config.Mail.From + "\n")
+	from := mail.Address{config.Mail.FromAlias, config.Mail.From}
+	buffer.WriteString("From: " + from.String() + "\n")
 	buffer.WriteString("To: " + strings.Join(config.Mail.To, ",") + "\n")
 	buffer.WriteString("Subject: ")
 	buffer.WriteString(" =?utf-8?B?")

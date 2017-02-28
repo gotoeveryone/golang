@@ -42,12 +42,13 @@ type (
 
 	// Mail メール接続設定
 	Mail struct {
-		SMTP     string   `json:"smtp"`
-		Port     int      `json:"port"`
-		User     string   `json:"user"`
-		Password string   `json:"password"`
-		From     string   `json:"from"`
-		To       []string `json:"to"`
+		SMTP      string   `json:"smtp"`
+		Port      int      `json:"port"`
+		User      string   `json:"user"`
+		Password  string   `json:"password"`
+		From      string   `json:"from"`
+		FromAlias string   `json:"fromAlias"`
+		To        []string `json:"to"`
 	}
 )
 

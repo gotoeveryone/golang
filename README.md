@@ -43,6 +43,8 @@ Golangの共通ライブラリとして処理をまとめてあります。
         "port": 0,
         "user": "",
         "password": "",
+        "from": "",
+        "fromAlias": "",
         "to": [""]
     }
 }
