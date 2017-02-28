@@ -24,7 +24,7 @@ Golangの共通ライブラリとして処理をまとめてあります。
 {
     "log": {
         "path": "",
-        "level": "INFO",
+        "level": "INFO"
     },
     "redis": {
         "host": "",
