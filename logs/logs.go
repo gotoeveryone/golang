@@ -18,7 +18,7 @@ var (
 	initialize = false
 )
 
-// InitLog ログ初期設定を行う
+// Init ログ初期設定を行う
 func Init(p, l string) error {
 	if initialize {
 		return errors.New("ログ設定はすでに初期化済みです。")
