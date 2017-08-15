@@ -1,0 +1,31 @@
+{
+    "log": {
+        "path": "app.log",
+        "level": "INFO"
+    },
+    "redis": {
+        "use": false,
+        "host": "localhost",
+        "port": 6379,
+        "auth": ""
+    },
+    "db": {
+        "name": "sample",
+        "host": "localhost",
+        "port": 3306,
+        "user": "forge",
+        "password": "forge"
+    },
+    "mail": {
+        "smtp": "localhost",
+        "port": 587,
+        "useTLS": true,
+        "user": "",
+        "password": "",
+        "from": "",
+        "fromAlias": "",
+        "to": [
+            ""
+        ]
+    }
+}

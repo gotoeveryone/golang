@@ -26,6 +26,7 @@ type (
 
 	// Redis Redis接続設定
 	Redis struct {
+		Use  bool   `json:"use"`
 		Host string `json:"host"`
 		Port int    `json:"port"`
 		Auth string `json:"auth"`
@@ -44,6 +45,7 @@ type (
 	Mail struct {
 		SMTP      string   `json:"smtp"`
 		Port      int      `json:"port"`
+		UseTLS    bool     `json:"useTLS"`
 		User      string   `json:"user"`
 		Password  string   `json:"password"`
 		From      string   `json:"from"`

@@ -17,7 +17,10 @@ func SendMail(config common.Config, subject string, body string) error {
 	auth := smtp.PlainAuth("", config.Mail.User, config.Mail.Password, config.Mail.SMTP)
 
 	var buffer bytes.Buffer
-	from := mail.Address{config.Mail.FromAlias, config.Mail.From}
+	from := mail.Address{
+		Name:    config.Mail.FromAlias,
+		Address: config.Mail.From,
+	}
 	buffer.WriteString("From: " + from.String() + "\n")
 	buffer.WriteString("To: " + strings.Join(config.Mail.To, ",") + "\n")
 	buffer.WriteString("Subject: ")
