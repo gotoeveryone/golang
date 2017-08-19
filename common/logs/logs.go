@@ -44,22 +44,22 @@ func Init(pre, p, l string) error {
 }
 
 // Debug デバッグ
-func Debug(v ...interface{}) {
+func Debug(v interface{}) {
 	logging("DEBUG", false, v)
 }
 
 // Info 通知
-func Info(v ...interface{}) {
+func Info(v interface{}) {
 	logging("INFO", false, v)
 }
 
 // Error エラー
-func Error(v ...interface{}) {
+func Error(v interface{}) {
 	logging("ERROR", true, v)
 }
 
 // Fatal 致命的
-func Fatal(v ...interface{}) {
+func Fatal(v interface{}) {
 	logging("FATAL", true, v)
 }
 
@@ -69,16 +69,19 @@ func logging(target string, outError bool, v interface{}) {
 	}
 	// 指定レベル以上の場合のみ出力
 	if level <= levels[target] {
-		if prefix == "" {
-			target = prefix + " " + target
+		var outPrefix string
+		if prefix != "" {
+			outPrefix = prefix + " " + target
+		} else {
+			outPrefix = target
 		}
 
 		// エラー出力するかどうか
 		var out interface{}
 		if outError {
-			out = fmt.Errorf("%s %s", target, v)
+			out = fmt.Errorf("%s %s", outPrefix, v)
 		} else {
-			out = fmt.Sprintf("%s %s", target, v)
+			out = fmt.Sprintf("%s %s", outPrefix, v)
 		}
 
 		// FATALの場合はログ出力して終了
