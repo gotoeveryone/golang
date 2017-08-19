@@ -1,9 +1,10 @@
 {
     "log": {
+        "prefix": "[SAMPLEAPP]",
         "path": "app.log",
         "level": "INFO"
     },
-    "redis": {
+    "cache": {
         "use": false,
         "host": "localhost",
         "port": 6379,

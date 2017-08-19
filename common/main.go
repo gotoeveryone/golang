@@ -5,6 +5,8 @@ import (
 	"flag"
 	"io/ioutil"
 	"log"
+	"os"
+	"path"
 
 	"github.com/gotoeveryone/golang/logs"
 )
@@ -13,19 +15,20 @@ type (
 	// Config 設定
 	Config struct {
 		Log   Log   `json:"log"`
-		Redis Redis `json:"redis"`
+		Cache Cache `json:"cache"`
 		DB    DB    `json:"db"`
 		Mail  Mail  `json:"mail"`
 	}
 
 	// Log ログ設定
 	Log struct {
-		Path  string `json:"path"`
-		Level string `json:"level"`
+		Prefix string `json:"prefix"`
+		Path   string `json:"path"`
+		Level  string `json:"level"`
 	}
 
-	// Redis Redis接続設定
-	Redis struct {
+	// Cache キャッシュサーバ接続設定
+	Cache struct {
 		Use  bool   `json:"use"`
 		Host string `json:"host"`
 		Port int    `json:"port"`
@@ -55,21 +58,28 @@ type (
 )
 
 var (
+	// AppConfig アプリケーションが保持する設定
+	AppConfig Config
 	configDir = flag.String("conf", "", "config.json at directory")
 )
 
 // LoadConfig 設定をJSONファイルから読み込む
-func LoadConfig(config *Config) {
+func LoadConfig() {
 	flag.Parse()
+	// デフォルトは実行ファイルと同じディレクトリ
+	if configDir == nil {
+		(*configDir) = path.Dir(os.Args[0])
+	}
 	jsonValue, err := ioutil.ReadFile(*configDir + "config.json")
 	if err != nil {
 		log.Fatal(err)
 	}
-	if err := json.Unmarshal(jsonValue, &config); err != nil {
+	if err := json.Unmarshal(jsonValue, &AppConfig); err != nil {
 		log.Fatal(err)
 	}
 	// ログ初期設定
-	if err := logs.Init(config.Log.Path, config.Log.Level); err != nil {
+	logConfig := AppConfig.Log
+	if err := logs.Init(logConfig.Prefix, logConfig.Path, logConfig.Level); err != nil {
 		log.Fatal(err)
 	}
 }
