@@ -8,7 +8,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/gotoeveryone/golang/logs"
+	"github.com/gotoeveryone/golang/common/logs"
 )
 
 type (
