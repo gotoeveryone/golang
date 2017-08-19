@@ -20,7 +20,7 @@ Golangの共通ライブラリとして処理をまとめてあります。
 以下コマンドで`$GOPATH`にインストールされます。
 
 ```sh
-$ go get -u github.com/gotoeveryone/golang/common
+$ go get -u github.com/gotoeveryone/golib
 ```
 
 ## 実行準備

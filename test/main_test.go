@@ -8,23 +8,23 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gotoeveryone/golang/common"
-	"github.com/gotoeveryone/golang/common/logs"
+	"github.com/gotoeveryone/golib"
+	"github.com/gotoeveryone/golib/logs"
 )
 
 // TestLog ログ出力確認
 func TestLog(t *testing.T) {
-	common.LoadConfig()
+	golib.LoadConfig()
 	key := "テスト" + time.Now().Format("20060102150405")
 	logs.Info(key)
 
 	// ファイルの存在確認
-	if _, err := os.Stat(common.AppConfig.Log.Path); err != nil {
+	if _, err := os.Stat(golib.AppConfig.Log.Path); err != nil {
 		panic(err)
 	}
 
 	// 出力先のファイルを開く
-	file, err := os.Open(common.AppConfig.Log.Path)
+	file, err := os.Open(golib.AppConfig.Log.Path)
 	if err != nil {
 		panic(err)
 	}

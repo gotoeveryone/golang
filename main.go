@@ -1,4 +1,4 @@
-package common
+package golib
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/gotoeveryone/golang/common/logs"
+	"github.com/gotoeveryone/golib/logs"
 )
 
 type (
