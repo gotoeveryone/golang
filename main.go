@@ -7,8 +7,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-
-	"github.com/gotoeveryone/golib/logs"
 )
 
 type (
@@ -42,6 +40,7 @@ type (
 		Port     int    `json:"port"`
 		User     string `json:"user"`
 		Password string `json:"password"`
+		Timezone string `json:"timezone"`
 	}
 
 	// Mail メール接続設定
@@ -58,17 +57,11 @@ type (
 )
 
 var (
-	// AppConfig アプリケーションが保持する設定
-	AppConfig Config
 	configDir = flag.String("conf", "./", "config.json at directory")
 )
 
-// LoadConfig 設定をJSONファイルから読み込む
-func LoadConfig(config *Config, customPath string) error {
-	// 引数の構造体がnilならデフォルトを利用
-	if config == nil {
-		config = &AppConfig
-	}
+// LoadConfig 設定をJSONファイルから構造体へ読み込む
+func LoadConfig(config interface{}, customPath string) error {
 	var configPath string
 	if customPath != "" {
 		configPath = customPath
@@ -92,12 +85,6 @@ func LoadConfig(config *Config, customPath string) error {
 	// JSON変換
 	if err := json.Unmarshal(jsonValue, config); err != nil {
 		return fmt.Errorf("Unmarshal error: %s", err)
-	}
-
-	// ログ初期設定
-	logConfig := config.Log
-	if err := logs.Init(logConfig.Prefix, logConfig.Path, logConfig.Level); err != nil {
-		return fmt.Errorf("LogConfig error: %s", err)
 	}
 
 	return nil
