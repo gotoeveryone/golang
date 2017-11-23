@@ -3,10 +3,10 @@ package golib
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
-	"path"
+	"path/filepath"
 
 	"github.com/gotoeveryone/golib/logs"
 )
@@ -60,26 +60,45 @@ type (
 var (
 	// AppConfig アプリケーションが保持する設定
 	AppConfig Config
-	configDir = flag.String("conf", "", "config.json at directory")
+	configDir = flag.String("conf", "./", "config.json at directory")
 )
 
 // LoadConfig 設定をJSONファイルから読み込む
-func LoadConfig() {
-	flag.Parse()
-	// デフォルトは実行ファイルと同じディレクトリ
-	if configDir == nil {
-		(*configDir) = path.Dir(os.Args[0])
+func LoadConfig(config *Config, customPath string) error {
+	// 引数の構造体がnilならデフォルトを利用
+	if config == nil {
+		config = &AppConfig
 	}
-	jsonValue, err := ioutil.ReadFile(*configDir + "config.json")
+	var configPath string
+	if customPath != "" {
+		configPath = customPath
+	} else {
+		flag.Parse()
+		// デフォルトは実行ファイルと同じディレクトリ
+		if configDir == nil {
+			executable, _ := os.Executable()
+			configPath = filepath.Dir(executable) + "/"
+		} else {
+			configPath = (*configDir)
+		}
+	}
+
+	// 構造体読み込み
+	jsonValue, err := ioutil.ReadFile(fmt.Sprintf("%sconfig.json", configPath))
 	if err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("Read file Error: %s", err)
 	}
-	if err := json.Unmarshal(jsonValue, &AppConfig); err != nil {
-		log.Fatal(err)
+
+	// JSON変換
+	if err := json.Unmarshal(jsonValue, config); err != nil {
+		return fmt.Errorf("Unmarshal error: %s", err)
 	}
+
 	// ログ初期設定
-	logConfig := AppConfig.Log
+	logConfig := config.Log
 	if err := logs.Init(logConfig.Prefix, logConfig.Path, logConfig.Level); err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("LogConfig error: %s", err)
 	}
+
+	return nil
 }
