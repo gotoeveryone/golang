@@ -1,21 +1,19 @@
-# Golang用共通ライブラリ
+# Utility library for Golang
 
-## 概要
+## Overview
 
 Golangの共通ライブラリとして処理をまとめてあります。  
 現在は以下のようなことができます。
 
 1. 設定ファイルをJSONより読み込み、構造体に保持
 2. ログ出力をレベル分けして出力
-3. メール通知
+3. メール送信
 
-## 前提
-
-以下がインストールされていること
+## Requirements
 
 - Golang 1.8+
 
-## 利用
+## Setup
 
 以下コマンドで`$GOPATH`にインストールされます。
 
@@ -23,7 +21,7 @@ Golangの共通ライブラリとして処理をまとめてあります。
 $ go get -u github.com/gotoeveryone/golib
 ```
 
-## 実行準備
+## Run
 
 `config.json.example`を参考に、任意ディレクトリに「config.json」を作成してください。  
 ※値は実際に利用するサービスの接続情報を設定すること。  
@@ -33,4 +31,11 @@ $ go get -u github.com/gotoeveryone/golib
 
 ```sh
 $ go run <my_program> --conf=/path/to/
+```
+
+## Test
+
+```sh
+$ cd <this_directory>
+$ go test
 ```

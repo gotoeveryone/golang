@@ -1,7 +1,8 @@
 {
     "log": {
-        "prefix": "[SAMPLEAPP]",
+        "prefix": "SAMPLEAPP",
         "path": "app.log",
+        "type": "file",
         "level": "INFO"
     },
     "cache": {
