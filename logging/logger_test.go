@@ -69,7 +69,7 @@ func TestNewLoggerWithFile(t *testing.T) {
 	current, _ := filepath.Abs(".")
 	fn := path.Join(current, "..", "tmp", "test.log")
 	if err := os.Remove(fn); err != nil {
-		if !os.IsExist(err) {
+		if !os.IsNotExist(err) {
 			t.Errorf("Remove log error: %s", err)
 		}
 	}
