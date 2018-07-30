@@ -5,12 +5,13 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 )
 
 var (
-	current, pathError = filepath.Abs(".")
-	configDir          = flag.String("conf", current, "config.json at directory")
+	executable, pathError = os.Executable()
+	configDir             = flag.String("conf", executable, "config.json at directory")
 )
 
 // LoadConfig is read the configuration from the JSON file into the structure
@@ -26,7 +27,7 @@ func LoadConfig(config interface{}, customPath string) error {
 		flag.Parse()
 		// The default is the same directory as the executable file
 		if configDir == nil {
-			configPath = current
+			configPath = executable
 		} else {
 			configPath = (*configDir)
 		}
