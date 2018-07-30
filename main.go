@@ -11,7 +11,7 @@ import (
 
 var (
 	executable, pathError = os.Executable()
-	configDir             = flag.String("conf", executable, "config.json at directory")
+	configDir             = flag.String("conf", filepath.Dir(executable), "config.json at directory")
 )
 
 // LoadConfig is read the configuration from the JSON file into the structure
@@ -27,7 +27,7 @@ func LoadConfig(config interface{}, customPath string) error {
 		flag.Parse()
 		// The default is the same directory as the executable file
 		if configDir == nil {
-			configPath = executable
+			configPath = filepath.Dir(executable)
 		} else {
 			configPath = (*configDir)
 		}
