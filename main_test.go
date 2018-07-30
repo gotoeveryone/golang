@@ -29,7 +29,7 @@ func TestLoadConfigNoSuchFile(t *testing.T) {
 
 func TestLoadConfigParseError(t *testing.T) {
 	current, _ := filepath.Abs(".")
-	dir := filepath.Join(current, "hoge")
+	dir := filepath.Join(current, "tmp")
 
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		t.Error(err)
@@ -45,7 +45,6 @@ func TestLoadConfigParseError(t *testing.T) {
 			t.Error(err)
 		}
 	}
-
 }
 
 func TestLoadConfig(t *testing.T) {
@@ -61,7 +60,7 @@ func TestLoadConfig(t *testing.T) {
 	}
 
 	var config config.Config
-	if err := LoadConfig(&config, ""); err != nil {
+	if err := LoadConfig(&config, current); err != nil {
 		t.Error(err)
 	}
 }
